@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shopping_app/models/products_model.dart';
-import 'package:shopping_app/screens/AllProducts/all_products_screen.dart';
+
 import 'package:shopping_app/utils/constants.dart';
 import 'package:shopping_app/utils/size_config.dart';
-import '../../widgets/custom_navigation_bar.dart';
+
+import '../AllProducts/all_products_screen.dart';
+import '../custom_navigation_bar.dart';
 import 'widgets/categories_list.dart';
 import 'widgets/home_app_bar.dart';
 import 'widgets/products_grid.dart';

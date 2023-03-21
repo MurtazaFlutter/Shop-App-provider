@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../models/all_products_model.dart';
-import '../../widgets/custom_navigation_bar.dart';
+
+import '../custom_navigation_bar.dart';
 import '../homepage/widgets/products_grid.dart';
 import 'widgets/app_bar.dart';
 

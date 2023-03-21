@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_app/models/products_model.dart';
-import 'package:shopping_app/screens/product_detail_screen.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/size_config.dart';
+import '../../product_detail_screen.dart';
 
 class ProductsGrid extends StatelessWidget {
   final int count;

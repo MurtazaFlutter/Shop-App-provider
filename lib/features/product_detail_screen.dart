@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/custom_app_bar.dart';
+import 'custom_app_bar.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   final String image;
