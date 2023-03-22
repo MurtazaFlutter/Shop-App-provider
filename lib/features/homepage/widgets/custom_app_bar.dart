@@ -12,9 +12,13 @@ class CustomAppBar extends StatelessWidget {
       elevation: 0,
       backgroundColor: Colors.white,
       leading: Padding(
-        padding: const EdgeInsets.all(18.0),
-        child: SvgPicture.asset('lib/assets/icons/Back.svg'),
-      ),
+          padding: const EdgeInsets.all(18.0),
+          child: InkWell(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: SvgPicture.asset('lib/assets/icons/Back.svg'),
+          )),
       actions: [
         Row(
           children: [

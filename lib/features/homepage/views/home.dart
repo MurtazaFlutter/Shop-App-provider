@@ -5,11 +5,11 @@ import 'package:shopping_app/models/products_model.dart';
 import 'package:shopping_app/utils/constants.dart';
 import 'package:shopping_app/utils/size_config.dart';
 
-import '../AllProducts/all_products_screen.dart';
-import '../custom_navigation_bar.dart';
-import 'widgets/categories_list.dart';
-import 'widgets/home_app_bar.dart';
-import 'widgets/products_grid.dart';
+import '../../AllProducts/all_products_screen.dart';
+import '../../../common/custom_navigation_bar.dart';
+import '../widgets/categories_list.dart';
+import '../widgets/home_app_bar.dart';
+import '../widgets/products_grid.dart';
 
 class Home extends StatelessWidget {
   const Home({
@@ -23,9 +23,12 @@ class Home extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xffE9F1F5),
       bottomNavigationBar: const CustomNavigationBar(
-        pages: [],
+        pages: [
+          Home(),
+        ],
       ),
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
             const HomeAppBar(),

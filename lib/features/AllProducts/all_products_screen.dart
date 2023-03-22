@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../models/all_products_model.dart';
 
-import '../custom_navigation_bar.dart';
+import '../../common/custom_navigation_bar.dart';
 import '../homepage/widgets/products_grid.dart';
 import 'widgets/app_bar.dart';
 
@@ -20,6 +20,7 @@ class AllProducts extends StatelessWidget {
       backgroundColor: const Color(0xffE9F1F5),
       body: SafeArea(
         child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,

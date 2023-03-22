@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shopping_app/models/products_model.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/size_config.dart';
-import '../../product_detail_screen.dart';
+import '../../detailscreen/views/product_detail_screen.dart';
 
 class ProductsGrid extends StatelessWidget {
   final int count;
@@ -45,8 +45,6 @@ class ProductsGrid extends StatelessWidget {
               child: Container(
                 height: SizeConfig.defaultSize! * 10.9,
                 width: SizeConfig.defaultSize! * 10.9,
-                // height: size.height * 0.0180,
-                // width: size.width * 0.0180,
                 decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
@@ -103,12 +101,7 @@ class ProductsGrid extends StatelessWidget {
                           ),
                           Row(
                             children: [
-                              Text(
-                                differentModel[index].priceOne,
-                                style: kSemiBold.copyWith(
-                                    fontSize: SizeConfig.defaultSize! * 1.5,
-                                    color: kGreen),
-                              ),
+                              priceWidget(index),
                               const SizedBox(
                                 width: 8,
                               ),
@@ -129,6 +122,14 @@ class ProductsGrid extends StatelessWidget {
               ),
             );
           }),
+    );
+  }
+
+  Text priceWidget(int index) {
+    return Text(
+      differentModel[index].priceOne,
+      style: kSemiBold.copyWith(
+          fontSize: SizeConfig.defaultSize! * 1.5, color: kGreen),
     );
   }
 }
