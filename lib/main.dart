@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'features/homepage/views/home.dart';
+import 'package:shopping_app/features/Auth/views/sign_in_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,15 +14,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        theme: ThemeData(
-            textTheme: GoogleFonts.poppinsTextTheme(),
-            appBarTheme: const AppBarTheme(
-                systemOverlayStyle: SystemUiOverlayStyle(
-              systemNavigationBarColor: Color(0xff06AB8D),
-              statusBarColor: Color(0xff06AB8D),
-            ))),
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        home: const Home());
+      theme: ThemeData(
+          textTheme: GoogleFonts.poppinsTextTheme(),
+          appBarTheme: const AppBarTheme(
+              systemOverlayStyle: SystemUiOverlayStyle(
+            systemNavigationBarColor: Color(0xff06AB8D),
+            statusBarColor: Color(0xff06AB8D),
+          ))),
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+      home: const SignInScreen(),
+    );
   }
 }

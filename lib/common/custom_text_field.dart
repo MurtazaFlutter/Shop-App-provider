@@ -4,12 +4,16 @@ import '../utils/constants.dart';
 class CustomTextField extends StatelessWidget {
   final String labelText;
   final String hinText;
+  final TextInputType textInputType;
+  final FormFieldValidator formFieldValidator;
   final TextEditingController controller;
   final bool obSecure;
 
   const CustomTextField(
       {Key? key,
       required this.labelText,
+      required this.formFieldValidator,
+      required this.textInputType,
       required this.hinText,
       required this.controller,
       this.obSecure = false})
@@ -18,6 +22,8 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType: textInputType,
+      validator: formFieldValidator,
       obscureText: obSecure,
       controller: controller,
       decoration: InputDecoration(

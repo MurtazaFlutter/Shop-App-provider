@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-
 import '../../../common/custom_text_field.dart';
 import '../../../common/default_button.dart';
+import '../../../common/validator.dart';
 import '../widgets/account_select.dart';
 import '../widgets/header_text.dart';
 import '../widgets/password_action.dart';
@@ -32,86 +32,95 @@ class _SignInScreenState extends State<SignInScreen> {
           height: double.infinity,
           width: double.infinity,
           color: const Color(0xff06AB8D),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const HeaderWidget(
-                title1: 'Welcome',
-                title2: 'Sign in to Continue',
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              Expanded(
-                child: Container(
-                  height: double.infinity,
-                  decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(30),
-                          topRight: Radius.circular(30))),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 40, horizontal: 30),
-                    child: SingleChildScrollView(
-                      physics: const BouncingScrollPhysics(),
-                      child: Column(
-                        children: [
-                          CustomTextField(
-                            labelText: 'Your Email Address',
-                            hinText: 'example@gmail.com',
-                            controller: emailController,
-                          ),
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          CustomTextField(
-                            obSecure: true,
-                            labelText: 'Password',
-                            hinText: '********',
-                            controller: passwordController,
-                          ),
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          const PasswordAction(),
-                          const SizedBox(
-                            height: 40,
-                          ),
-                          const SizedBox(
-                            height: 40,
-                          ),
-                          DefaultButton(
-                            buttonTitle: 'Sign in',
-                            width: double.infinity,
-                            height: 50,
-                            onTap: () {
-                              debugPrint('Working?');
-                            },
-                          ),
-                          const SizedBox(
-                            height: 100,
-                          ),
-                          AccountSelect(
-                            title1: 'Don\'t have an account?',
-                            title2: 'Sign Up',
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const SignUpSceen(),
-                                ),
-                              );
-                            },
-                          )
-                        ],
+          child: Form(
+            key: ValidatorMethods.loginFormKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const HeaderWidget(
+                  title1: 'Welcome',
+                  title2: 'Sign in to Continue',
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                Expanded(
+                  child: Container(
+                    height: double.infinity,
+                    decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(30),
+                            topRight: Radius.circular(30))),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 40, horizontal: 30),
+                      child: SingleChildScrollView(
+                        physics: const BouncingScrollPhysics(),
+                        child: Column(
+                          children: [
+                            CustomTextField(
+                              textInputType: TextInputType.emailAddress,
+                              formFieldValidator: (value) =>
+                                  ValidatorMethods().validateFullName(value),
+                              labelText: 'Your Email Address',
+                              hinText: 'example@gmail.com',
+                              controller: emailController,
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            CustomTextField(
+                              textInputType: TextInputType.emailAddress,
+                              formFieldValidator: (value) =>
+                                  ValidatorMethods().validatePassword(value),
+                              obSecure: true,
+                              labelText: 'Password',
+                              hinText: '********',
+                              controller: passwordController,
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            const PasswordAction(),
+                            const SizedBox(
+                              height: 40,
+                            ),
+                            const SizedBox(
+                              height: 40,
+                            ),
+                            DefaultButton(
+                              buttonTitle: 'Sign in',
+                              width: double.infinity,
+                              height: 50,
+                              onTap: () {
+                                ValidatorMethods.loginFormSubmit(context);
+                              },
+                            ),
+                            const SizedBox(
+                              height: 100,
+                            ),
+                            AccountSelect(
+                              title1: 'Don\'t have an account?',
+                              title2: 'Sign Up',
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const SignUpSceen(),
+                                  ),
+                                );
+                              },
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           )),
     );
   }

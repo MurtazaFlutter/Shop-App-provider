@@ -1,6 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_svg/svg.dart';
-
 import '../../../utils/constants.dart';
 import '../../../utils/size_config.dart';
 
@@ -39,10 +37,6 @@ class ProductInfo extends StatelessWidget {
               ),
               Row(
                 children: [
-                  SvgPicture.asset('lib/assets/icons/apple.svg'),
-                  const SizedBox(
-                    width: 5,
-                  ),
                   Text(
                     storeTitle,
                     style: kMedium.copyWith(

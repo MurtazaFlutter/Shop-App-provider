@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_app/utils/constants.dart';
-
 import '../../../common/default_button.dart';
 import '../../../utils/size_config.dart';
 import '../../homepage/widgets/custom_app_bar.dart';
@@ -45,47 +44,52 @@ class _ProductDetailScreenState extends State<ProductDetailScreen>
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: PreferredSize(
-          preferredSize: Size.fromHeight(SizeConfig.defaultSize! * 6.9),
-          child: const CustomAppBar()),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ProductDetailImage(widget: widget),
-          ProductInfo(
-              productTitle: widget.productTitle, storeTitle: widget.storeTitle),
-          TabBar(
-              indicatorPadding: EdgeInsets.symmetric(
-                horizontal: SizeConfig.defaultSize! * 2,
-                vertical: SizeConfig.defaultSize! * 0.5,
+    return DefaultTabController(
+      length: 2,
+      animationDuration: const Duration(seconds: 5),
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: PreferredSize(
+            preferredSize: Size.fromHeight(SizeConfig.defaultSize! * 6.9),
+            child: const CustomAppBar()),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ProductDetailImage(widget: widget),
+            ProductInfo(
+                productTitle: widget.productTitle,
+                storeTitle: widget.storeTitle),
+            TabBar(
+                indicatorPadding: EdgeInsets.symmetric(
+                  horizontal: SizeConfig.defaultSize! * 2,
+                  vertical: SizeConfig.defaultSize! * 0.5,
+                ),
+                indicatorColor: kGreen,
+                labelColor: kGreen,
+                labelStyle:
+                    kMedium.copyWith(fontSize: SizeConfig.defaultSize! * 1.2),
+                unselectedLabelColor: kDarkGrey,
+                controller: controller,
+                tabs: const [
+                  Tab(
+                    text: 'Details',
+                  ),
+                  Tab(
+                    text: 'Reviews',
+                  ),
+                ]),
+            Expanded(
+              child: TabBarView(
+                controller: controller,
+                children: [
+                  DetailsTab(),
+                  const ReviewTab(),
+                ],
               ),
-              indicatorColor: kGreen,
-              labelColor: kGreen,
-              labelStyle:
-                  kMedium.copyWith(fontSize: SizeConfig.defaultSize! * 1.2),
-              unselectedLabelColor: kDarkGrey,
-              controller: controller,
-              tabs: const [
-                Tab(
-                  text: 'Details',
-                ),
-                Tab(
-                  text: 'Reviews',
-                ),
-              ]),
-          Expanded(
-            child: TabBarView(
-              controller: controller,
-              children: [
-                DetailsTab(),
-                const ReviewTab(),
-              ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
