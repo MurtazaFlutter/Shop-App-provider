@@ -5,6 +5,7 @@ import '../../../common/default_button.dart';
 import '../widgets/account_select.dart';
 import '../widgets/header_text.dart';
 import '../widgets/password_action.dart';
+import 'sign_up_screen.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -82,19 +83,27 @@ class _SignInScreenState extends State<SignInScreen> {
                             height: 40,
                           ),
                           DefaultButton(
-                            width: 200,
+                            buttonTitle: 'Sign in',
+                            width: double.infinity,
                             height: 50,
-                            buttonTitle: 'gsggt',
                             onTap: () {
                               debugPrint('Working?');
                             },
                           ),
                           const SizedBox(
-                            height: 50,
+                            height: 100,
                           ),
-                          const AccountSelect(
+                          AccountSelect(
                             title1: 'Don\'t have an account?',
                             title2: 'Sign Up',
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const SignUpSceen(),
+                                ),
+                              );
+                            },
                           )
                         ],
                       ),

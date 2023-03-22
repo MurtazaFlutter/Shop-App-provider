@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
 import '../../../utils/constants.dart';
-import '../views/sign_up_screen.dart';
 
 class AccountSelect extends StatelessWidget {
   final String title1;
   final String title2;
+  final VoidCallback onTap;
   const AccountSelect({
+    required this.onTap,
     required this.title1,
     required this.title2,
     super.key,
@@ -15,12 +16,7 @@ class AccountSelect extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const SignUpSceen()),
-        );
-      },
+      onTap: onTap,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,

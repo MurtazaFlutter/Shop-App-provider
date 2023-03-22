@@ -34,8 +34,11 @@ class HeaderWidget extends StatelessWidget {
                     fontSize: 28,
                     color: Colors.white,
                   )),
+              const SizedBox(
+                height: 10,
+              ),
               Text(title2,
-                  style: kMedium.copyWith(
+                  style: kRegular.copyWith(
                     fontSize: 12,
                     color: Colors.white,
                   )),

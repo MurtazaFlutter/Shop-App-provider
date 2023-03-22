@@ -50,49 +50,11 @@ class _ProductDetailScreenState extends State<ProductDetailScreen>
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(SizeConfig.defaultSize! * 6.9),
           child: const CustomAppBar()),
-      body: ListView(
-        physics: const BouncingScrollPhysics(),
-        shrinkWrap: true,
-        // mainAxisAlignment: MainAxisAlignment.start,
-        // crossAxisAlignment: CrossAxisAlignment.start,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            height: SizeConfig.defaultSize! * 30,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: widget.color,
-            ),
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                Image.asset(
-                  'lib/assets/images/detail_image1.jpg',
-                  height: SizeConfig.defaultSize! * 30,
-                ),
-                Positioned(
-                  right: 20,
-                  bottom: 0,
-                  child: Container(
-                    height: SizeConfig.defaultSize! * 4.4,
-                    width: SizeConfig.defaultSize! * 4.4,
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          blurRadius: 2,
-                        )
-                      ],
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      Icons.favorite_border_outlined,
-                      size: SizeConfig.defaultSize! * 3,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+          ProductDetailImage(widget: widget),
           ProductInfo(
               productTitle: widget.productTitle, storeTitle: widget.storeTitle),
           TabBar(
@@ -114,8 +76,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen>
                   text: 'Reviews',
                 ),
               ]),
-          SizedBox(
-            height: SizeConfig.defaultSize! * 40,
+          Expanded(
             child: TabBarView(
               controller: controller,
               children: [
@@ -125,6 +86,58 @@ class _ProductDetailScreenState extends State<ProductDetailScreen>
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class ProductDetailImage extends StatelessWidget {
+  const ProductDetailImage({
+    super.key,
+    required this.widget,
+  });
+
+  final ProductDetailScreen widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        height: SizeConfig.defaultSize! * 30,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: widget.color,
+        ),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Image.asset(
+              'lib/assets/images/detail_image1.jpg',
+              height: SizeConfig.defaultSize! * 30,
+            ),
+            Positioned(
+              right: 20,
+              bottom: 0,
+              child: Container(
+                height: SizeConfig.defaultSize! * 4.4,
+                width: SizeConfig.defaultSize! * 4.4,
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: 2,
+                    )
+                  ],
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  Icons.favorite_border_outlined,
+                  size: SizeConfig.defaultSize! * 3,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -142,93 +155,97 @@ class DetailsTab extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('IMAC SILVER 21,5 INCH MID 2010/2011 RAM 8GB HDD \n500GB SECOND',
-              textAlign: TextAlign.justify,
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+                'IMAC SILVER 21,5 INCH MID 2010/2011 RAM 8GB HDD \n500GB SECOND',
+                textAlign: TextAlign.justify,
+                style: kRegular.copyWith(
+                    fontSize: SizeConfig.defaultSize! * 1.2, color: kDarkGrey)),
+            SizedBox(
+              height: SizeConfig.defaultSize! * 1,
+            ),
+            Text(
+              'Specification \n-Processor Core i3 \n-IMAC (Mid 2010) Memory 4GB 1333 MHz DDR3 (bisq upgrade) \n-Build in Display 21.5 inch (1920 X 1080,',
               style: kRegular.copyWith(
-                  fontSize: SizeConfig.defaultSize! * 1.2, color: kDarkGrey)),
-          SizedBox(
-            height: SizeConfig.defaultSize! * 1,
-          ),
-          Text(
-            'Specification \n-Processor Core i3 \n-IMAC (Mid 2010) Memory 4GB 1333 MHz DDR3 (bisq upgrade) \n-Build in Display 21.5 inch (1920 X 1080,',
-            style: kRegular.copyWith(
-                fontSize: SizeConfig.defaultSize! * 1.2, color: kDarkGrey),
-          ),
-          SizedBox(
-            height: SizeConfig.defaultSize! * 2,
-          ),
-          Text('Color',
-              style: kSemiBold.copyWith(
-                  fontSize: SizeConfig.defaultSize! * 1.2, color: kBlack)),
-          SizedBox(
-            height: SizeConfig.defaultSize! * 1,
-          ),
-          Row(
-            children: [
-              ...List.generate(
-                  selectColors.length,
-                  (index) => Container(
-                        margin: const EdgeInsets.only(right: 5),
-                        height: SizeConfig.defaultSize! * 3.6,
-                        width: SizeConfig.defaultSize! * 6.6,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            color: Colors.white,
-                            border: Border.all(
-                              color: Colors.black12,
-                            )),
-                        child: Center(
-                          child: Text(
-                            selectColors[index].toString(),
-                            style: kRegular.copyWith(
-                                fontSize: SizeConfig.defaultSize! * 1.2),
+                  fontSize: SizeConfig.defaultSize! * 1.2, color: kDarkGrey),
+            ),
+            SizedBox(
+              height: SizeConfig.defaultSize! * 2,
+            ),
+            Text('Color',
+                style: kSemiBold.copyWith(
+                    fontSize: SizeConfig.defaultSize! * 1.2, color: kBlack)),
+            SizedBox(
+              height: SizeConfig.defaultSize! * 1,
+            ),
+            Row(
+              children: [
+                ...List.generate(
+                    selectColors.length,
+                    (index) => Container(
+                          margin: const EdgeInsets.only(right: 5),
+                          height: SizeConfig.defaultSize! * 3.6,
+                          width: SizeConfig.defaultSize! * 6.6,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              color: Colors.white,
+                              border: Border.all(
+                                color: Colors.black12,
+                              )),
+                          child: Center(
+                            child: Text(
+                              selectColors[index].toString(),
+                              style: kRegular.copyWith(
+                                  fontSize: SizeConfig.defaultSize! * 1.2),
+                            ),
                           ),
-                        ),
-                      ))
-            ],
-          ),
-          SizedBox(
-            height: SizeConfig.defaultSize! * 2,
-          ),
-          const Divider(),
-          SizedBox(
-            height: SizeConfig.defaultSize! * 2,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: const [
-                  QuantityContainer(
-                    icon: Icons.remove,
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Text('1'),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  QuantityContainer(
-                    icon: Icons.add,
-                  ),
-                ],
-              ),
-              DefaultButton(
-                height: SizeConfig.defaultSize! * 5,
-                width: SizeConfig.defaultSize! * 18.5,
-                buttonTitle: 'Add to Cart',
-                onTap: () {},
-              )
-            ],
-          )
-        ],
+                        ))
+              ],
+            ),
+            SizedBox(
+              height: SizeConfig.defaultSize! * 2,
+            ),
+            const Divider(),
+            SizedBox(
+              height: SizeConfig.defaultSize! * 2,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: const [
+                    QuantityContainer(
+                      icon: Icons.remove,
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Text('1'),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    QuantityContainer(
+                      icon: Icons.add,
+                    ),
+                  ],
+                ),
+                DefaultButton(
+                  height: SizeConfig.defaultSize! * 5,
+                  width: SizeConfig.defaultSize! * 18.5,
+                  buttonTitle: 'Add to Cart',
+                  onTap: () {},
+                )
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

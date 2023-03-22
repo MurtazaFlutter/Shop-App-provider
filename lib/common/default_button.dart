@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
 import '../utils/constants.dart';
-import '../utils/size_config.dart';
 
 class DefaultButton extends StatelessWidget {
   final String buttonTitle;
@@ -20,25 +18,21 @@ class DefaultButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      child: Expanded(
-        child: Container(
-          height: height,
-          width: width,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(
-              SizeConfig.defaultSize! * 6,
-            ),
-            color: kOrangeColor,
-          ),
-          child: Center(
-              child: Text(
-            buttonTitle,
-            style: kSemiBold.copyWith(
-              color: Colors.white,
-              fontSize: SizeConfig.defaultSize! * 1.4,
-            ),
-          )),
+      child: Container(
+        height: height,
+        width: width,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(36),
+          color: kOrangeColor,
         ),
+        child: Center(
+            child: Text(
+          buttonTitle,
+          style: kSemiBold.copyWith(
+            color: Colors.white,
+            fontSize: 14,
+          ),
+        )),
       ),
     );
   }
