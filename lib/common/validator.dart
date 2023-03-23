@@ -20,28 +20,34 @@ class ValidatorMethods {
     if (value.length < 3) {
       return 'Full name must be at least 3 characters long.';
     }
+    if (value.length > 15) {
+      return 'Exceeded 15 characters';
+    }
     return null;
   }
 
-  final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+  var regEmail = RegExp(
+      r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
 
-  String validateEmail(String value) {
+  String? validateEmail(String value) {
     if (value.isEmpty) {
       return "Email is required";
     }
-    if (!emailRegex.hasMatch(value)) {
+    if (!regEmail.hasMatch(value)) {
       return 'Please enter a valid email';
     }
-    return '';
+    return null;
   }
 
-  final phoneRegex = RegExp(r'^\d{10}$');
-  String? validatePhone(String? value) {
-    if (value!.isEmpty) {
-      return 'Phone number can\'t be empty';
-    }
-    if (!phoneRegex.hasMatch(value)) {
-      return 'Please enter a valid 10 digit phone number';
+  RegExp numReg = RegExp(r".*[0-9].*");
+  RegExp phoneNumReg = RegExp(
+      r"^(\+\d{1,2}\s?)?1?\-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$");
+  RegExp letterReg = RegExp(r".*[A-Za-z].*");
+  String? phoneValidator(String? value) {
+    if (!phoneNumReg.hasMatch(value!)) {
+      return 'Enter a valid phone number';
+    } else if (value.length > 12 || value.length < 8) {
+      return 'Enter at least 8 numbers!';
     }
     return null;
   }
@@ -52,17 +58,6 @@ class ValidatorMethods {
     }
     if (value.length < 8) {
       return 'Password must be at least 8 characters long.';
-    }
-    return null;
-  }
-
-  String? validateConfirmPassword(
-      String? passwordValue, String? confirmPasswordValue) {
-    if (confirmPasswordValue!.isEmpty) {
-      return 'Confirm password cannot be empty';
-    }
-    if (passwordValue != confirmPasswordValue) {
-      return 'Passwords do not match';
     }
     return null;
   }
