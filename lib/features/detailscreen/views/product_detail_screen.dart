@@ -193,21 +193,24 @@ class DetailsTab extends StatelessWidget {
               children: [
                 ...List.generate(
                     selectColors.length,
-                    (index) => Container(
-                          margin: const EdgeInsets.only(right: 5),
-                          height: SizeConfig.defaultSize! * 3.6,
-                          width: SizeConfig.defaultSize! * 6.6,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: Colors.white,
-                              border: Border.all(
-                                color: Colors.black12,
-                              )),
-                          child: Center(
-                            child: Text(
-                              selectColors[index].toString(),
-                              style: kRegular.copyWith(
-                                  fontSize: SizeConfig.defaultSize! * 1.2),
+                    (index) => InkWell(
+                          onTap: () {},
+                          child: Container(
+                            margin: const EdgeInsets.only(right: 5),
+                            height: SizeConfig.defaultSize! * 3.6,
+                            width: SizeConfig.defaultSize! * 6.6,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: Colors.white,
+                                border: Border.all(
+                                  color: Colors.black12,
+                                )),
+                            child: Center(
+                              child: Text(
+                                selectColors[index].toString(),
+                                style: kRegular.copyWith(
+                                    fontSize: SizeConfig.defaultSize! * 1.2),
+                              ),
                             ),
                           ),
                         ))
@@ -224,18 +227,20 @@ class DetailsTab extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
-                  children: const [
+                  children: [
                     QuantityContainer(
                       icon: Icons.remove,
+                      onTap: () {},
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 20,
                     ),
-                    Text('1'),
-                    SizedBox(
+                    const Text('1'),
+                    const SizedBox(
                       width: 20,
                     ),
                     QuantityContainer(
+                      onTap: () {},
                       icon: Icons.add,
                     ),
                   ],
@@ -278,24 +283,32 @@ class ReviewTab extends StatelessWidget {
 
 class QuantityContainer extends StatelessWidget {
   final IconData icon;
-  const QuantityContainer({
+  int count;
+  final VoidCallback onTap;
+
+  QuantityContainer({
+    required this.onTap,
     required this.icon,
+    this.count = 1,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     bool selectedIndex = false;
-    return Container(
-      height: SizeConfig.defaultSize! * 2.7,
-      width: SizeConfig.defaultSize! * 2.7,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10.61),
-        border:
-            Border.all(color: selectedIndex ? Colors.white : Colors.black12),
-      ),
-      child: Center(
-        child: Icon(icon, size: SizeConfig.defaultSize! * 2),
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        height: SizeConfig.defaultSize! * 2.7,
+        width: SizeConfig.defaultSize! * 2.7,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.61),
+          border:
+              Border.all(color: selectedIndex ? Colors.white : Colors.black12),
+        ),
+        child: Center(
+          child: Icon(icon, size: SizeConfig.defaultSize! * 2),
+        ),
       ),
     );
   }

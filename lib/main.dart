@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shopping_app/features/homepage/views/home.dart';
+import 'package:shopping_app/features/splash/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
               statusBarColor: Color(0xff06AB8D),
             ))),
         debugShowCheckedModeBanner: false,
-        title: 'Massar Shopp app',
-        home: const Home());
+        title: 'Massar Shop app',
+        home: const SplashScreen());
   }
 }

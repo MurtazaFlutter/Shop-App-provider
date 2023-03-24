@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:shopping_app/models/products_model.dart';
 import 'package:shopping_app/utils/constants.dart';
 import 'package:shopping_app/utils/size_config.dart';
@@ -9,6 +8,7 @@ import '../../Drawer/drawer.dart';
 import '../widgets/categories_list.dart';
 import '../widgets/home_app_bar.dart';
 import '../widgets/products_grid.dart';
+import '../widgets/promotions.dart';
 
 class Home extends StatelessWidget {
   const Home({
@@ -39,31 +39,8 @@ class Home extends StatelessWidget {
                 height: SizeConfig.defaultSize! * 3,
               ),
               CategoriesList(),
-              SizedBox(
-                height: SizeConfig.defaultSize! * 3,
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: SizeConfig.defaultSize! * 2,
-                ),
-                child: Container(
-                  margin: const EdgeInsets.only(right: 20),
-                  height: SizeConfig.defaultSize! * 15,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ListView.builder(
-                        itemCount: 3,
-                        //padding: const EdgeInsets.symmetric(horizontal: 20),
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: ((context, index) {
-                          return SvgPicture.asset(
-                              'lib/assets/images/promotions1.svg');
-                        })),
-                  ),
-                ),
-              ),
-              SizedBox(height: SizeConfig.defaultSize! * 3),
+              const Promotions(),
+              SizedBox(height: SizeConfig.defaultSize! * 2),
               Padding(
                 padding: EdgeInsets.symmetric(
                   horizontal: SizeConfig.defaultSize! * 2,
