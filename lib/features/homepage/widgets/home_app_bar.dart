@@ -28,10 +28,13 @@ class HomeAppBar extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    SvgPicture.asset(
-                      'lib/assets/icons/menu.svg',
-                      height: SizeConfig.defaultSize! * 1.8,
-                      width: SizeConfig.defaultSize! * 1.8,
+                    InkWell(
+                      onTap: () => Scaffold.of(context).openDrawer(),
+                      child: SvgPicture.asset(
+                        'lib/assets/icons/menu.svg',
+                        height: SizeConfig.defaultSize! * 1.8,
+                        width: SizeConfig.defaultSize! * 1.8,
+                      ),
                     ),
                     SizedBox(
                       width: SizeConfig.defaultSize! * 1.5,
