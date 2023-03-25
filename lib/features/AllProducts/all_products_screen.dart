@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shopping_app/features/Drawer/drawer.dart';
 import '../../models/all_products_model.dart';
-
 import '../../common/custom_navigation_bar.dart';
 import '../homepage/widgets/products_grid.dart';
 import 'widgets/app_bar.dart';
@@ -14,6 +14,7 @@ class AllProducts extends StatelessWidget {
   Widget build(BuildContext context) {
     // final args = ModalRoute.of(context)!.settings.arguments as AllProducts;
     return Scaffold(
+      drawer: const DrawerWidget(),
       bottomNavigationBar: const CustomNavigationBar(
         pages: [],
       ),

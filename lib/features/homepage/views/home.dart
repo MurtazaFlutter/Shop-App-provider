@@ -23,7 +23,7 @@ class Home extends StatelessWidget {
     return Scaffold(
       key: scaffoldKey,
       drawer: const DrawerWidget(),
-      backgroundColor: const Color(0xffE9F1F5),
+      backgroundColor: scaffoldColor,
       bottomNavigationBar: const CustomNavigationBar(
         pages: [
           Home(),

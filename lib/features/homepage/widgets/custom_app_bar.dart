@@ -1,14 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:shopping_app/features/cart/views/cart_screen.dart';
+import 'package:shopping_app/utils/constants.dart';
 
 class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({
+  final String title;
+  String? cartIcon;
+  CustomAppBar({
+    required this.title,
+    this.cartIcon,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      centerTitle: true,
+      title: Text(
+        title,
+        style: kSemiBold.copyWith(
+          fontSize: 15,
+          color: kBlack,
+        ),
+      ),
       elevation: 0,
       backgroundColor: Colors.white,
       leading: Padding(
@@ -30,7 +44,16 @@ class CustomAppBar extends StatelessWidget {
             const SizedBox(
               width: 15,
             ),
-            SvgPicture.asset('lib/assets/icons/cart_black.svg'),
+            InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: ((context) => const CartScreen()),
+                    ),
+                  );
+                },
+                child: SvgPicture.asset(cartIcon.toString())),
             const SizedBox(
               width: 15,
             ),

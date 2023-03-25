@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shopping_app/features/splash/splash_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:shopping_app/providers/cart.dart';
+import 'features/homepage/views/home.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+        providers: [ChangeNotifierProvider(create: (_) => CartNotifier())],
+        child: const MyApp()),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -23,6 +29,6 @@ class MyApp extends StatelessWidget {
             ))),
         debugShowCheckedModeBanner: false,
         title: 'Massar Shop app',
-        home: const SplashScreen());
+        home: const Home());
   }
 }
