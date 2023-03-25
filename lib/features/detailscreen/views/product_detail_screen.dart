@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shopping_app/features/cart/views/cart_screen.dart';
 import 'package:shopping_app/utils/constants.dart';
 import '../../../common/default_button.dart';
+import '../../../providers/cart.dart';
 import '../../../utils/size_config.dart';
 import '../../homepage/widgets/custom_app_bar.dart';
 import '../widgets/product_info.dart';
@@ -41,6 +44,13 @@ class _ProductDetailScreenState extends State<ProductDetailScreen>
     super.dispose();
   }
 
+  final List selectColors = [
+    'Green',
+    'Red',
+    'Yellow',
+    'White',
+  ];
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -51,7 +61,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen>
         backgroundColor: Colors.white,
         appBar: PreferredSize(
             preferredSize: Size.fromHeight(SizeConfig.defaultSize! * 6.9),
-            child: const CustomAppBar()),
+            child: CustomAppBar(
+              title: '',
+              cartIcon: 'lib/assets/icons/cart_black.svg',
+            )),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -83,7 +96,121 @@ class _ProductDetailScreenState extends State<ProductDetailScreen>
               child: TabBarView(
                 controller: controller,
                 children: [
-                  DetailsTab(),
+                  SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 20),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                              'IMAC SILVER 21,5 INCH MID 2010/2011 RAM 8GB HDD \n500GB SECOND',
+                              textAlign: TextAlign.justify,
+                              style: kRegular.copyWith(
+                                  fontSize: SizeConfig.defaultSize! * 1.2,
+                                  color: kDarkGrey)),
+                          SizedBox(
+                            height: SizeConfig.defaultSize! * 1,
+                          ),
+                          Text(
+                            'Specification \n-Processor Core i3 \n-IMAC (Mid 2010) Memory 4GB 1333 MHz DDR3 (bisq upgrade) \n-Build in Display 21.5 inch (1920 X 1080,',
+                            style: kRegular.copyWith(
+                                fontSize: SizeConfig.defaultSize! * 1.2,
+                                color: kDarkGrey),
+                          ),
+                          SizedBox(
+                            height: SizeConfig.defaultSize! * 2,
+                          ),
+                          Text('Color',
+                              style: kSemiBold.copyWith(
+                                  fontSize: SizeConfig.defaultSize! * 1.2,
+                                  color: kBlack)),
+                          SizedBox(
+                            height: SizeConfig.defaultSize! * 1,
+                          ),
+                          Row(
+                            children: [
+                              ...List.generate(
+                                  selectColors.length,
+                                  (index) => InkWell(
+                                        onTap: () {},
+                                        child: Container(
+                                          margin:
+                                              const EdgeInsets.only(right: 5),
+                                          height: SizeConfig.defaultSize! * 3.6,
+                                          width: SizeConfig.defaultSize! * 6.6,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              color: Colors.white,
+                                              border: Border.all(
+                                                color: Colors.black12,
+                                              )),
+                                          child: Center(
+                                            child: Text(
+                                              selectColors[index].toString(),
+                                              style: kRegular.copyWith(
+                                                  fontSize:
+                                                      SizeConfig.defaultSize! *
+                                                          1.2),
+                                            ),
+                                          ),
+                                        ),
+                                      ))
+                            ],
+                          ),
+                          SizedBox(
+                            height: SizeConfig.defaultSize! * 2,
+                          ),
+                          const Divider(),
+                          SizedBox(
+                            height: SizeConfig.defaultSize! * 2,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  QuantityContainer(
+                                    icon: Icons.remove,
+                                    onTap: () {},
+                                  ),
+                                  const SizedBox(
+                                    width: 20,
+                                  ),
+                                  const Text('1'),
+                                  const SizedBox(
+                                    width: 20,
+                                  ),
+                                  QuantityContainer(
+                                    onTap: () {},
+                                    icon: Icons.add,
+                                  ),
+                                ],
+                              ),
+                              DefaultButton(
+                                height: SizeConfig.defaultSize! * 5,
+                                width: SizeConfig.defaultSize! * 18.5,
+                                buttonTitle: 'Add to Cart',
+                                onTap: () {
+                                  context
+                                      .read<CartNotifier>()
+                                      .addItem(homeProducts);
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: ((context) =>
+                                              const CartScreen())));
+                                },
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
                   const ReviewTab(),
                 ],
               ),
@@ -147,118 +274,23 @@ class ProductDetailImage extends StatelessWidget {
   }
 }
 
-class DetailsTab extends StatelessWidget {
-  DetailsTab({
-    super.key,
-  });
-  final List selectColors = [
-    'Green',
-    'Red',
-    'Yellow',
-    'White',
-  ];
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      physics: const BouncingScrollPhysics(),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-                'IMAC SILVER 21,5 INCH MID 2010/2011 RAM 8GB HDD \n500GB SECOND',
-                textAlign: TextAlign.justify,
-                style: kRegular.copyWith(
-                    fontSize: SizeConfig.defaultSize! * 1.2, color: kDarkGrey)),
-            SizedBox(
-              height: SizeConfig.defaultSize! * 1,
-            ),
-            Text(
-              'Specification \n-Processor Core i3 \n-IMAC (Mid 2010) Memory 4GB 1333 MHz DDR3 (bisq upgrade) \n-Build in Display 21.5 inch (1920 X 1080,',
-              style: kRegular.copyWith(
-                  fontSize: SizeConfig.defaultSize! * 1.2, color: kDarkGrey),
-            ),
-            SizedBox(
-              height: SizeConfig.defaultSize! * 2,
-            ),
-            Text('Color',
-                style: kSemiBold.copyWith(
-                    fontSize: SizeConfig.defaultSize! * 1.2, color: kBlack)),
-            SizedBox(
-              height: SizeConfig.defaultSize! * 1,
-            ),
-            Row(
-              children: [
-                ...List.generate(
-                    selectColors.length,
-                    (index) => InkWell(
-                          onTap: () {},
-                          child: Container(
-                            margin: const EdgeInsets.only(right: 5),
-                            height: SizeConfig.defaultSize! * 3.6,
-                            width: SizeConfig.defaultSize! * 6.6,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                color: Colors.white,
-                                border: Border.all(
-                                  color: Colors.black12,
-                                )),
-                            child: Center(
-                              child: Text(
-                                selectColors[index].toString(),
-                                style: kRegular.copyWith(
-                                    fontSize: SizeConfig.defaultSize! * 1.2),
-                              ),
-                            ),
-                          ),
-                        ))
-              ],
-            ),
-            SizedBox(
-              height: SizeConfig.defaultSize! * 2,
-            ),
-            const Divider(),
-            SizedBox(
-              height: SizeConfig.defaultSize! * 2,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    QuantityContainer(
-                      icon: Icons.remove,
-                      onTap: () {},
-                    ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    const Text('1'),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    QuantityContainer(
-                      onTap: () {},
-                      icon: Icons.add,
-                    ),
-                  ],
-                ),
-                DefaultButton(
-                  height: SizeConfig.defaultSize! * 5,
-                  width: SizeConfig.defaultSize! * 18.5,
-                  buttonTitle: 'Add to Cart',
-                  onTap: () {},
-                )
-              ],
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
+// class DetailsTab extends StatelessWidget {
+//   HomeProducts homeProducts;
+//   DetailsTab({
+//     required this.homeProducts,
+//     super.key,
+//   });
+//   final List selectColors = [
+//     'Green',
+//     'Red',
+//     'Yellow',
+//     'White',
+//   ];
+//   @override
+//   Widget build(BuildContext context) {
+//     return
+//   }
+// }
 
 class ReviewTab extends StatelessWidget {
   const ReviewTab({
