@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_app/models/products_model.dart';
 import 'package:shopping_app/utils/constants.dart';
 import 'package:shopping_app/utils/size_config.dart';
 import '../../AllProducts/all_products_screen.dart';
@@ -38,7 +37,7 @@ class Home extends StatelessWidget {
               SizedBox(
                 height: SizeConfig.defaultSize! * 3,
               ),
-              CategoriesList(),
+              const CategoriesList(),
               const Promotions(),
               SizedBox(height: SizeConfig.defaultSize! * 2),
               Padding(
@@ -73,10 +72,7 @@ class Home extends StatelessWidget {
                   ],
                 ),
               ),
-              ProductsGrid(
-                differentModel: products,
-                count: products.length,
-              ),
+              const ProductsGrid(),
             ],
           ),
         );

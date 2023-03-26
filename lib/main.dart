@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
-import 'package:shopping_app/providers/cart.dart';
 import 'features/homepage/views/home.dart';
+import 'providers/all_providers.dart';
 
 void main() {
   runApp(
-    MultiProvider(
-        providers: [ChangeNotifierProvider(create: (_) => CartNotifier())],
-        child: const MyApp()),
+    const AllProviders(),
   );
 }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../models/promotions.dart';
 import '../../../utils/size_config.dart';
 
@@ -7,25 +8,29 @@ class Promotions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: SizeConfig.defaultSize! * 15,
-      width: double.infinity,
-      margin: const EdgeInsets.all(10),
-      child: ListView.builder(
-        physics: const BouncingScrollPhysics(),
-        itemCount: promotionImages.length,
-        //padding: const EdgeInsets.symmetric(horizontal: 20),
-        shrinkWrap: true,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: ((context, index) {
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Image.asset(
-              promotionImages[index].toString(),
-            ),
-          );
-        }),
-      ),
-    );
+    return Consumer<PromotionsProvider>(
+        builder: (context, promotionsProvider, child) {
+      List promotions = promotionsProvider.promotionImages;
+      return Container(
+        height: SizeConfig.defaultSize! * 15,
+        width: double.infinity,
+        margin: const EdgeInsets.all(10),
+        child: ListView.builder(
+          physics: const BouncingScrollPhysics(),
+          itemCount: promotions.length,
+          //padding: const EdgeInsets.symmetric(horizontal: 20),
+          shrinkWrap: true,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: ((context, index) {
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Image.asset(
+                promotions[index].toString(),
+              ),
+            );
+          }),
+        ),
+      );
+    });
   }
 }

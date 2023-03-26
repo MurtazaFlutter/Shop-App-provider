@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_app/features/Drawer/drawer.dart';
-import '../../models/all_products_model.dart';
 import '../../common/custom_navigation_bar.dart';
 import '../homepage/widgets/products_grid.dart';
 import 'widgets/app_bar.dart';
@@ -25,15 +24,12 @@ class AllProducts extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const AllProductsAppBar(),
-              const SizedBox(
+            children: const [
+              AllProductsAppBar(),
+              SizedBox(
                 height: 30,
               ),
-              ProductsGrid(
-                differentModel: allproducts,
-                count: allproducts.length,
-              ),
+              ProductsGrid()
             ],
           ),
         ),

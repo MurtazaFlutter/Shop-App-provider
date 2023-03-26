@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shopping_app/models/products_model.dart';
-import '../../../providers/home_data_provider.dart';
+import '../../../providers/all_products_data.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/size_config.dart';
 import '../../detailscreen/views/product_detail_screen.dart';
 
-class ProductsGrid extends StatelessWidget {
-  const ProductsGrid({
+class AllProductsGrid extends StatelessWidget {
+  const AllProductsGrid({
     super.key,
   });
 
@@ -15,23 +15,23 @@ class ProductsGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
 
-    return Consumer<HomeProductsProvider>(
-        builder: (context, homeProductsProvider, child) {
-      List<HomeProducts> homeProducts = homeProductsProvider.homeProducts;
+    return Consumer<AllProductsProvider>(
+        builder: (context, allProductsGrid, child) {
+      List allProducts = allProductsGrid.getAllProducts;
       return Padding(
         padding: EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! * 1),
         child: GridView.builder(
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: homeProducts.length,
+            itemCount: allProducts.length,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               mainAxisSpacing: SizeConfig.defaultSize! * 2,
               crossAxisSpacing: SizeConfig.defaultSize! * 2,
             ),
             itemBuilder: (context, index) {
-              HomeProducts products = homeProducts[index];
+              HomeProducts products = allProducts[index];
               return InkWell(
                 onTap: () {
                   Navigator.push(context,

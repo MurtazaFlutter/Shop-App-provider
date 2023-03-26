@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:shopping_app/common/default_button.dart';
-import 'package:shopping_app/providers/cart.dart';
 import 'package:shopping_app/utils/size_config.dart';
 
 import '../../../utils/constants.dart';
@@ -108,8 +107,8 @@ class _CartScreenState extends State<CartScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Consumer<CartNotifier>(builder: (context, cartNotifier, _) {
-          final cart = cartNotifier.cart;
+        child: Consumer(builder: (context, cartNotifier, _) {
+          // final cart = cartNotifier.cart;
           return Column(
             children: [
               Row(
@@ -129,9 +128,9 @@ class _CartScreenState extends State<CartScreen> {
                 child: ListView.builder(
                   shrinkWrap: true,
                   physics: const BouncingScrollPhysics(),
-                  itemCount: cart.items.length,
+                  itemCount: 2,
                   itemBuilder: (context, index) {
-                    final item = cart.items[index];
+                    //  final item = cart.items[index];
                     return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 5),
                       child: Container(
@@ -193,7 +192,7 @@ class _CartScreenState extends State<CartScreen> {
                               //     activeColor: Colors.white,
                               //   ),
                               // ),
-                              Image.asset(item.image),
+                              //Image.asset(item.image),
                               Padding(
                                 padding: const EdgeInsets.all(13.0),
                                 child: Column(
@@ -201,19 +200,19 @@ class _CartScreenState extends State<CartScreen> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    Text(
-                                      item.storeTitle,
-                                      style: kMedium.copyWith(
-                                        fontSize: SizeConfig.defaultSize! * 1.4,
-                                      ),
-                                    ),
-                                    Text(
-                                      item.priceOne,
-                                      style: kSemiBold.copyWith(
-                                          fontSize:
-                                              SizeConfig.defaultSize! * 1.5,
-                                          color: kGreen),
-                                    ),
+                                    // Text(
+                                    //  // item.storeTitle,
+                                    //   style: kMedium.copyWith(
+                                    //     fontSize: SizeConfig.defaultSize! * 1.4,
+                                    //   ),
+                                    // ),
+                                    // Text(
+                                    //   item.priceOne,
+                                    //   style: kSemiBold.copyWith(
+                                    //       fontSize:
+                                    //           SizeConfig.defaultSize! * 1.5,
+                                    //       color: kGreen),
+                                    // ),
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,

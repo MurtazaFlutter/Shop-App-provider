@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:shopping_app/features/cart/views/cart_screen.dart';
 import 'package:shopping_app/utils/constants.dart';
 import '../../../common/default_button.dart';
-import '../../../providers/cart.dart';
 import '../../../utils/size_config.dart';
 import '../../homepage/widgets/custom_app_bar.dart';
 import '../widgets/product_info.dart';
@@ -195,9 +193,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen>
                                 width: SizeConfig.defaultSize! * 18.5,
                                 buttonTitle: 'Add to Cart',
                                 onTap: () {
-                                  context
-                                      .read<CartNotifier>()
-                                      .addItem(homeProducts);
+                                  // context
+                                  //     .read<CartNotifier>()
+                                  //     .addItem(homeProducts);
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -336,6 +334,7 @@ class QuantityContainer extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.61),
           border:
+              // ignore: dead_code
               Border.all(color: selectedIndex ? Colors.white : Colors.black12),
         ),
         child: Center(
