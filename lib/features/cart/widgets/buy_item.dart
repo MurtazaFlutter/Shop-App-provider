@@ -5,7 +5,11 @@ import '../../../common/default_button.dart';
 import '../../../utils/size_config.dart';
 
 class BuyItem extends StatelessWidget {
+  final int quantity;
+  final String price;
   const BuyItem({
+    required this.quantity,
+    required this.price,
     super.key,
   });
 
@@ -38,16 +42,16 @@ class BuyItem extends StatelessWidget {
                 height: 10,
               ),
               Text(
-                '\$1,468.20',
+                '\$$price',
                 style: kMedium.copyWith(
-                  fontSize: 20,
+                  fontSize: SizeConfig.defaultSize! * 2,
                   color: kGreen,
                 ),
               ),
             ],
           ),
           DefaultButton(
-              buttonTitle: 'Buy (  cart)',
+              buttonTitle: 'Buy ($quantity items) ',
               width: SizeConfig.defaultSize! * 18.29,
               height: SizeConfig.defaultSize! * 5,
               onTap: () {})

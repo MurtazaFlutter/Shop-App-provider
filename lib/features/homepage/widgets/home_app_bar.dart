@@ -104,7 +104,6 @@ class HomeAppBar extends StatelessWidget {
             Container(
               height: SizeConfig.defaultSize! * 4.3,
               width: SizeConfig.defaultSize! * 30.75,
-              // width: 335,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10), color: Colors.white),
               child: TextFormField(

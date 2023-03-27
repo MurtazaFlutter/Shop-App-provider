@@ -1,21 +1,3 @@
-// class CartItem {
-//   final String id;
-//   final String title;
-//   //final int quantity;
-//   final String price;
-//   final String image;
-//   // final String unitTap;
-//   // final int productPrice;
-
-//   CartItem({
-//     required this.id,
-//     required this.title,
-//     // required this.quantity,
-//     required this.price,
-//     required this.image,
-//     // required this.unitTap,
-//     // required this.productPrice,
-//   });
 import 'products_model.dart';
 
 class CartItem {
@@ -27,7 +9,7 @@ class CartItem {
     this.quantity = 1,
   });
 
-  String get subtotal {
+  double get subtotal {
     return homeProducts.priceOne * quantity;
   }
 }

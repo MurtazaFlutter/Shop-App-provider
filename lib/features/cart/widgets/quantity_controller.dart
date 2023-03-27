@@ -5,7 +5,9 @@ import '../../../utils/constants.dart';
 import '../../../utils/size_config.dart';
 
 class ProductQuantityController extends StatelessWidget {
+  final VoidCallback onTap;
   const ProductQuantityController({
+    required this.onTap,
     super.key,
   });
 
@@ -55,7 +57,9 @@ class ProductQuantityController extends StatelessWidget {
         SizedBox(
           width: SizeConfig.defaultSize! * 8,
         ),
-        SvgPicture.asset('lib/assets/icons/delete.svg'),
+        InkWell(
+            onTap: onTap,
+            child: SvgPicture.asset('lib/assets/icons/delete.svg')),
       ],
     );
   }

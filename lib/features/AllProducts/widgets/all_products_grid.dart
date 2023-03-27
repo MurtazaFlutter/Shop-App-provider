@@ -37,6 +37,7 @@ class AllProductsGrid extends StatelessWidget {
                   Navigator.push(context,
                       MaterialPageRoute(builder: ((context) {
                     return ProductDetailScreen(
+                      id: products.id,
                       color: products.color,
                       image: products.image,
                       productTitle: products.productTitle,
@@ -106,7 +107,7 @@ class AllProductsGrid extends StatelessWidget {
                             Row(
                               children: [
                                 Text(
-                                  products.priceOne,
+                                  products.priceOne.toString(),
                                   style: kMedium.copyWith(
                                       fontSize: SizeConfig.defaultSize! * 1.5,
                                       color: kGreen),

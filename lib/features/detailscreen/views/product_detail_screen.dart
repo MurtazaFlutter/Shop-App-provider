@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shopping_app/common/show_message.dart';
 import 'package:shopping_app/models/products_model.dart';
 import 'package:shopping_app/providers/cart_notifier.dart';
 import 'package:shopping_app/utils/constants.dart';
@@ -14,15 +15,17 @@ import '../widgets/review_tab.dart';
 import '../widgets/select_colors.dart';
 
 class ProductDetailScreen extends StatefulWidget {
+  final int id;
   final String image;
   final Color color;
   final String productTitle;
   final String storeTitle;
-  final String priceOne;
+  final double priceOne;
   final String priceTwo;
 
   const ProductDetailScreen({
     super.key,
+    required this.id,
     required this.color,
     required this.image,
     required this.productTitle,
@@ -74,7 +77,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen>
             ProductInfo(
               productTitle: widget.productTitle,
               storeTitle: widget.storeTitle,
-              priceOne: widget.priceOne,
+              priceOne: '\$${widget.priceOne}',
               priceTwo: widget.priceTwo,
             ),
             ProductTabBar(controller: controller),
@@ -103,58 +106,35 @@ class _ProductDetailScreenState extends State<ProductDetailScreen>
                           SizedBox(
                             height: SizeConfig.defaultSize! * 2,
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  QuantityContainer(
-                                    icon: Icons.remove,
-                                    onTap: () {},
-                                  ),
-                                  const SizedBox(
-                                    width: 20,
-                                  ),
-                                  const Text('1'),
-                                  const SizedBox(
-                                    width: 20,
-                                  ),
-                                  QuantityContainer(
-                                    onTap: () {},
-                                    icon: Icons.add,
-                                  ),
-                                ],
-                              ),
-                              DefaultButton(
-                                  height: SizeConfig.defaultSize! * 5,
-                                  width: SizeConfig.defaultSize! * 18.5,
-                                  buttonTitle: 'Add to Cart',
-                                  onTap: () {
-                                    HomeProducts homeProducts = HomeProducts(
-                                      color: widget.color,
-                                      image: widget.image,
-                                      productTitle: widget.productTitle,
-                                      storeTitle: widget.storeTitle,
-                                      priceOne: widget.priceOne,
-                                      priceTwo: widget.priceTwo,
-                                    );
+                          DefaultButton(
+                              height: SizeConfig.defaultSize! * 5,
+                              width: double.infinity,
+                              buttonTitle: 'Add to Cart',
+                              onTap: () {
+                                HomeProducts homeProducts = HomeProducts(
+                                  id: widget.id,
+                                  color: widget.color,
+                                  image: widget.image,
+                                  productTitle: widget.productTitle,
+                                  storeTitle: widget.storeTitle,
+                                  priceOne: widget.priceOne..toDouble(),
+                                  priceTwo: widget.priceTwo,
+                                );
 
+                                bool added =
                                     cartProvider.addToCart(homeProducts);
 
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        padding: const EdgeInsets.all(20),
-                                        duration: const Duration(seconds: 3),
-                                        backgroundColor: kGreen,
-                                        content: Text(
-                                          'Product added to Cart successfully',
-                                          style: kMedium.copyWith(fontSize: 15),
-                                        ),
-                                      ),
-                                    );
-                                  })
-                            ],
-                          )
+                                added
+                                    ? showMessage(
+                                        title:
+                                            'Product is added to Cart Succesfully',
+                                        color: kGreen,
+                                        context: context)
+                                    : showMessage(
+                                        title: 'Product is already in the Cart',
+                                        color: kRed,
+                                        context: context);
+                              })
                         ],
                       ),
                     ),

@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 
 class HomeProducts {
+  final int id;
   final Color color;
   final String image;
   final String productTitle;
   final String storeTitle;
-  final String priceOne;
+  final double priceOne;
   final String priceTwo;
 
   HomeProducts({
+    required this.id,
     required this.color,
     required this.image,
     required this.productTitle,

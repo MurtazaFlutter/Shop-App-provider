@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../models/cart_item_model.dart';
 import '../models/products_model.dart';
 
@@ -8,13 +7,46 @@ class CartProvider extends ChangeNotifier {
 
   List<CartItem> get items => _items;
 
-  void addToCart(
-    HomeProducts homeProducts,
-  ) {
-    final cartItem = CartItem(
-      homeProducts: homeProducts,
-    );
-    _items.add(cartItem);
+// Add item to the cart
+  bool addToCart(HomeProducts homeProducts) {
+    // Check if item already exists in cart
+    final index =
+        _items.indexWhere((item) => item.homeProducts.id == homeProducts.id);
+
+    if (index >= 0) {
+      return false;
+      // If item already exists, add new item
+      // _items[index].quantity++;
+    } else {
+      final cartItem = CartItem(
+        homeProducts: homeProducts,
+        quantity: 1,
+      );
+      _items.add(cartItem);
+      notifyListeners();
+      return true;
+    }
+  }
+
+  // Remove item from cart
+  void removeFromCart(CartItem item) {
+    _items.remove(item);
+    notifyListeners();
+  }
+
+  // Calculate total price of item in cart
+  double get totalPrice {
+    double total = 0;
+    for (var item in _items) {
+      total +=
+          double.parse(item.homeProducts.priceOne.toString()) * item.quantity;
+    }
+    return total;
+  }
+
+  // Clear cart
+  void clearCart() {
+    _items.clear();
     notifyListeners();
   }
 }
