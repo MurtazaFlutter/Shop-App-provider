@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'features/homepage/views/home.dart';
+import 'package:shopping_app/features/splash/views/splash_screen.dart';
 import 'providers/all_providers.dart';
 
 void main() {
@@ -26,6 +26,6 @@ class MyApp extends StatelessWidget {
             ))),
         debugShowCheckedModeBanner: false,
         title: 'Massar Shop app',
-        home: const Home());
+        home: const SplashScreen());
   }
 }

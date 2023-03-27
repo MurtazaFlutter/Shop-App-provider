@@ -7,10 +7,14 @@ class ProductInfo extends StatelessWidget {
     super.key,
     required this.productTitle,
     required this.storeTitle,
+    required this.priceOne,
+    required this.priceTwo,
   });
 
   final String productTitle;
   final String storeTitle;
+  final String priceOne;
+  final String priceTwo;
 
   @override
   Widget build(BuildContext context) {
@@ -54,14 +58,14 @@ class ProductInfo extends StatelessWidget {
           child: Column(
             children: [
               Text(
-                '\$999.99',
+                priceOne.toString(),
                 style: kSemiBold.copyWith(
                   color: kGreen,
                   fontSize: SizeConfig.defaultSize! * 1.9,
                 ),
               ),
               Text(
-                '\$1399.99',
+                priceTwo,
                 style: kSemiBold.copyWith(
                     color: kRed,
                     fontSize: SizeConfig.defaultSize! * 1,

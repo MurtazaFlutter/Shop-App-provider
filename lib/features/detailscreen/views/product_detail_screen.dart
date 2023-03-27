@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_app/features/cart/views/cart_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:shopping_app/models/products_model.dart';
+import 'package:shopping_app/providers/cart_notifier.dart';
 import 'package:shopping_app/utils/constants.dart';
 import '../../../common/default_button.dart';
 import '../../../utils/size_config.dart';
 import '../../homepage/widgets/custom_app_bar.dart';
+import '../widgets/product_detail_image.dart';
 import '../widgets/product_info.dart';
+import '../widgets/product_spec.dart';
+import '../widgets/product_tabs.dart';
+import '../widgets/review_tab.dart';
+import '../widgets/select_colors.dart';
 
 class ProductDetailScreen extends StatefulWidget {
   final String image;
@@ -12,6 +19,7 @@ class ProductDetailScreen extends StatefulWidget {
   final String productTitle;
   final String storeTitle;
   final String priceOne;
+  final String priceTwo;
 
   const ProductDetailScreen({
     super.key,
@@ -20,6 +28,7 @@ class ProductDetailScreen extends StatefulWidget {
     required this.productTitle,
     required this.storeTitle,
     required this.priceOne,
+    required this.priceTwo,
   });
 
   @override
@@ -42,15 +51,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen>
     super.dispose();
   }
 
-  final List selectColors = [
-    'Green',
-    'Red',
-    'Yellow',
-    'White',
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final cartProvider = Provider.of<CartProvider>(context, listen: false);
     SizeConfig().init(context);
     return DefaultTabController(
       length: 2,
@@ -69,27 +72,12 @@ class _ProductDetailScreenState extends State<ProductDetailScreen>
           children: [
             ProductDetailImage(widget: widget),
             ProductInfo(
-                productTitle: widget.productTitle,
-                storeTitle: widget.storeTitle),
-            TabBar(
-                indicatorPadding: EdgeInsets.symmetric(
-                  horizontal: SizeConfig.defaultSize! * 2,
-                  vertical: SizeConfig.defaultSize! * 0.5,
-                ),
-                indicatorColor: kGreen,
-                labelColor: kGreen,
-                labelStyle:
-                    kMedium.copyWith(fontSize: SizeConfig.defaultSize! * 1.2),
-                unselectedLabelColor: kDarkGrey,
-                controller: controller,
-                tabs: const [
-                  Tab(
-                    text: 'Details',
-                  ),
-                  Tab(
-                    text: 'Reviews',
-                  ),
-                ]),
+              productTitle: widget.productTitle,
+              storeTitle: widget.storeTitle,
+              priceOne: widget.priceOne,
+              priceTwo: widget.priceTwo,
+            ),
+            ProductTabBar(controller: controller),
             Expanded(
               child: TabBarView(
                 controller: controller,
@@ -103,62 +91,11 @@ class _ProductDetailScreenState extends State<ProductDetailScreen>
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                              'IMAC SILVER 21,5 INCH MID 2010/2011 RAM 8GB HDD \n500GB SECOND',
-                              textAlign: TextAlign.justify,
-                              style: kRegular.copyWith(
-                                  fontSize: SizeConfig.defaultSize! * 1.2,
-                                  color: kDarkGrey)),
-                          SizedBox(
-                            height: SizeConfig.defaultSize! * 1,
-                          ),
-                          Text(
-                            'Specification \n-Processor Core i3 \n-IMAC (Mid 2010) Memory 4GB 1333 MHz DDR3 (bisq upgrade) \n-Build in Display 21.5 inch (1920 X 1080,',
-                            style: kRegular.copyWith(
-                                fontSize: SizeConfig.defaultSize! * 1.2,
-                                color: kDarkGrey),
-                          ),
+                          const ProductSpecifications(),
                           SizedBox(
                             height: SizeConfig.defaultSize! * 2,
                           ),
-                          Text('Color',
-                              style: kSemiBold.copyWith(
-                                  fontSize: SizeConfig.defaultSize! * 1.2,
-                                  color: kBlack)),
-                          SizedBox(
-                            height: SizeConfig.defaultSize! * 1,
-                          ),
-                          Row(
-                            children: [
-                              ...List.generate(
-                                  selectColors.length,
-                                  (index) => InkWell(
-                                        onTap: () {},
-                                        child: Container(
-                                          margin:
-                                              const EdgeInsets.only(right: 5),
-                                          height: SizeConfig.defaultSize! * 3.6,
-                                          width: SizeConfig.defaultSize! * 6.6,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              color: Colors.white,
-                                              border: Border.all(
-                                                color: Colors.black12,
-                                              )),
-                                          child: Center(
-                                            child: Text(
-                                              selectColors[index].toString(),
-                                              style: kRegular.copyWith(
-                                                  fontSize:
-                                                      SizeConfig.defaultSize! *
-                                                          1.2),
-                                            ),
-                                          ),
-                                        ),
-                                      ))
-                            ],
-                          ),
+                          SelectColors(),
                           SizedBox(
                             height: SizeConfig.defaultSize! * 2,
                           ),
@@ -189,20 +126,33 @@ class _ProductDetailScreenState extends State<ProductDetailScreen>
                                 ],
                               ),
                               DefaultButton(
-                                height: SizeConfig.defaultSize! * 5,
-                                width: SizeConfig.defaultSize! * 18.5,
-                                buttonTitle: 'Add to Cart',
-                                onTap: () {
-                                  // context
-                                  //     .read<CartNotifier>()
-                                  //     .addItem(homeProducts);
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: ((context) =>
-                                              const CartScreen())));
-                                },
-                              )
+                                  height: SizeConfig.defaultSize! * 5,
+                                  width: SizeConfig.defaultSize! * 18.5,
+                                  buttonTitle: 'Add to Cart',
+                                  onTap: () {
+                                    HomeProducts homeProducts = HomeProducts(
+                                      color: widget.color,
+                                      image: widget.image,
+                                      productTitle: widget.productTitle,
+                                      storeTitle: widget.storeTitle,
+                                      priceOne: widget.priceOne,
+                                      priceTwo: widget.priceTwo,
+                                    );
+
+                                    cartProvider.addToCart(homeProducts);
+
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        padding: const EdgeInsets.all(20),
+                                        duration: const Duration(seconds: 3),
+                                        backgroundColor: kGreen,
+                                        content: Text(
+                                          'Product added to Cart successfully',
+                                          style: kMedium.copyWith(fontSize: 15),
+                                        ),
+                                      ),
+                                    );
+                                  })
                             ],
                           )
                         ],
@@ -214,131 +164,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen>
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class ProductDetailImage extends StatelessWidget {
-  const ProductDetailImage({
-    super.key,
-    required this.widget,
-  });
-
-  final ProductDetailScreen widget;
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        height: SizeConfig.defaultSize! * 30,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: widget.color,
-        ),
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            Image.asset(
-              'lib/assets/images/detail_image1.jpg',
-              height: SizeConfig.defaultSize! * 30,
-            ),
-            Positioned(
-              right: 20,
-              bottom: 0,
-              child: Container(
-                height: SizeConfig.defaultSize! * 4.4,
-                width: SizeConfig.defaultSize! * 4.4,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 2,
-                    )
-                  ],
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  Icons.favorite_border_outlined,
-                  size: SizeConfig.defaultSize! * 3,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-// class DetailsTab extends StatelessWidget {
-//   HomeProducts homeProducts;
-//   DetailsTab({
-//     required this.homeProducts,
-//     super.key,
-//   });
-//   final List selectColors = [
-//     'Green',
-//     'Red',
-//     'Yellow',
-//     'White',
-//   ];
-//   @override
-//   Widget build(BuildContext context) {
-//     return
-//   }
-// }
-
-class ReviewTab extends StatelessWidget {
-  const ReviewTab({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
-        Text(
-          'IMAC SILVER 21,5 INCH MID 2010/2011 RAM 8GB HDD \n500GB SECOND',
-          textAlign: TextAlign.justify,
-        ),
-        Text('data'),
-      ],
-    );
-  }
-}
-
-class QuantityContainer extends StatelessWidget {
-  final IconData icon;
-  int count;
-  final VoidCallback onTap;
-
-  QuantityContainer({
-    required this.onTap,
-    required this.icon,
-    this.count = 1,
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    bool selectedIndex = false;
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-        height: SizeConfig.defaultSize! * 2.7,
-        width: SizeConfig.defaultSize! * 2.7,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.61),
-          border:
-              // ignore: dead_code
-              Border.all(color: selectedIndex ? Colors.white : Colors.black12),
-        ),
-        child: Center(
-          child: Icon(icon, size: SizeConfig.defaultSize! * 2),
         ),
       ),
     );

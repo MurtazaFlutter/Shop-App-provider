@@ -42,6 +42,7 @@ class AllProductsGrid extends StatelessWidget {
                       productTitle: products.productTitle,
                       storeTitle: products.storeTitle,
                       priceOne: products.priceOne,
+                      priceTwo: '',
                     );
                   })));
                 },

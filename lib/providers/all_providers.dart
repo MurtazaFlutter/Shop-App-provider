@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../main.dart';
-import '../models/promotions.dart';
 import 'all_products_data.dart';
+import 'cart_notifier.dart';
 import 'categories_provider.dart';
 import 'drawer_providers.dart';
 import 'home_data_provider.dart';
+import 'promotion_provider.dart';
 
 class AllProviders extends StatelessWidget {
   const AllProviders({
@@ -30,6 +31,10 @@ class AllProviders extends StatelessWidget {
       ChangeNotifierProvider(
         create: (_) => CategoriesProvider(),
       ),
+      ChangeNotifierProvider(
+        create: (_) => CartProvider(),
+      ),
     ], child: const MyApp());
   }
 }
+//Bro check the error
