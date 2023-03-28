@@ -16,6 +16,7 @@ class CheckOutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final cart = Provider.of<CartProvider>(context, listen: false);
     SizeConfig().init(context);
+
     return Scaffold(
       bottomNavigationBar: BuyItem(
         price: (cart.totalPrice).toStringAsFixed(2),
@@ -48,20 +49,97 @@ class CheckOutScreen extends StatelessWidget {
                 height: SizeConfig.defaultSize! * .5,
               ),
               CheckOutContainer(
-                height: SizeConfig.defaultSize! * 18,
+                // height: SizeConfig.defaultSize! * 18,
                 width: double.infinity,
                 onTap: () {},
-                child: Container(),
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: cart.items.length,
+                    itemBuilder: ((context, index) {
+                      final item = cart.items[index];
+                      return Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: SizeConfig.defaultSize! * 1,
+                          vertical: SizeConfig.defaultSize! * 1,
+                        ),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Image.asset(
+                                      item.homeProducts.image,
+                                      height: SizeConfig.defaultSize! * 6,
+                                      width: SizeConfig.defaultSize! * 6,
+                                    ),
+                                    Column(
+                                      children: [
+                                        Text(item.homeProducts.productTitle),
+                                        Text(
+                                          '\$${item.homeProducts.priceOne}',
+                                          style: kSemiBold.copyWith(
+                                              fontSize:
+                                                  SizeConfig.defaultSize! * 1.5,
+                                              color: kGreen),
+                                        ),
+                                      ],
+                                    ),
+                                    Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Text(
+                                          'Quantity ${item.homeProducts.quantity}'),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            const Divider()
+                          ],
+                        ),
+                      );
+                    })),
               ),
               SizedBox(
                 height: SizeConfig.defaultSize! * 2,
               ),
               CheckOutContainer(
-                height: SizeConfig.defaultSize! * 7,
-                width: double.infinity,
-                onTap: () {},
-                child: Container(),
-              ),
+                  height: SizeConfig.defaultSize! * 7,
+                  width: double.infinity,
+                  onTap: () {},
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: SizeConfig.defaultSize! * 2),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Enter a Coupon Code',
+                          style: kRegular.copyWith(
+                              color: kGrey,
+                              fontSize: SizeConfig.defaultSize! * 1.1),
+                        ),
+                        Container(
+                          height: SizeConfig.defaultSize! * 3.92,
+                          width: SizeConfig.defaultSize! * 10.2,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: const Color(0xff01A688),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Use Coupon'.toUpperCase(),
+                              style: kSemiBold.copyWith(
+                                  color: Colors.white,
+                                  fontSize: SizeConfig.defaultSize! * 0.9),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  )),
               SizedBox(
                 height: SizeConfig.defaultSize! * 2,
               ),

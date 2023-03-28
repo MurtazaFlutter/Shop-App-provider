@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class CheckOutContainer extends StatelessWidget {
-  final double height;
+  double? height;
   final double width;
   final VoidCallback onTap;
   final Widget child;
-  const CheckOutContainer({
-    required this.height,
+  CheckOutContainer({
+    this.height,
     required this.width,
     required this.onTap,
     required this.child,
@@ -17,14 +17,16 @@ class CheckOutContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      child: Container(
-        height: height,
-        width: width,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10),
+      child: Expanded(
+        child: Container(
+          height: height,
+          width: width,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: child,
         ),
-        child: child,
       ),
     );
   }
