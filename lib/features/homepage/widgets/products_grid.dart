@@ -37,6 +37,7 @@ class ProductsGrid extends StatelessWidget {
                   Navigator.push(context,
                       MaterialPageRoute(builder: ((context) {
                     return ProductDetailScreen(
+                      quantity: products.quantity,
                       id: products.id,
                       color: products.color,
                       image: products.image,

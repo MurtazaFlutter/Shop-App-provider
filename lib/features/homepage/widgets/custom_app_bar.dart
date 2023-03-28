@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:shopping_app/features/cart/views/cart_screen.dart';
 import 'package:shopping_app/utils/constants.dart';
 
+// ignore: must_be_immutable
 class CustomAppBar extends StatelessWidget {
   final String title;
   String? cartIcon;

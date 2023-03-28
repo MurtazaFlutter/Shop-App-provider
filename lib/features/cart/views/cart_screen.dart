@@ -100,6 +100,7 @@ class CartScreen extends StatelessWidget {
                                             onTap: () {
                                               cart.removeFromCart(item);
                                             },
+                                            homeProducts: item.homeProducts,
                                           ),
                                         ],
                                       ),

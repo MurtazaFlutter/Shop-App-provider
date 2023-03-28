@@ -1,24 +1,38 @@
 import 'package:flutter/material.dart';
 
 class HomeProducts {
-  final int id;
-  final Color color;
-  final String image;
-  final String productTitle;
-  final String storeTitle;
-  final double priceOne;
-  final String priceTwo;
+  int id;
+  String image;
+  String productTitle;
+  String storeTitle;
+  Color color;
+  double priceOne;
+  String priceTwo;
+  int quantity;
 
   HomeProducts({
     required this.id,
-    required this.color,
     required this.image,
     required this.productTitle,
     required this.storeTitle,
+    required this.color,
     required this.priceOne,
     required this.priceTwo,
+    this.quantity = 1,
   });
+
+  // Method to update the quantity and calculate total price
+  void updateQuantity(int newQuantity) {
+    if (newQuantity >= 1) {
+      quantity = newQuantity;
+    }
+  }
+
+  double get total {
+    return quantity * priceOne;
+  }
 }
+
 
 //List<HomeProducts> products = [
 //   HomeProducts(

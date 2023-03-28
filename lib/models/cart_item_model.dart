@@ -2,9 +2,11 @@ import 'products_model.dart';
 
 class CartItem {
   final HomeProducts homeProducts;
+  double price;
   int quantity;
 
   CartItem({
+    required this.price,
     required this.homeProducts,
     this.quantity = 1,
   });

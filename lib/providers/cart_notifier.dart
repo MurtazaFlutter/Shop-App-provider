@@ -16,11 +16,11 @@ class CartProvider extends ChangeNotifier {
     if (index >= 0) {
       return false;
       // If item already exists, add new item
-      // _items[index].quantity++;
     } else {
       final cartItem = CartItem(
         homeProducts: homeProducts,
         quantity: 1,
+        price: homeProducts.priceOne,
       );
       _items.add(cartItem);
       notifyListeners();
@@ -48,5 +48,18 @@ class CartProvider extends ChangeNotifier {
   void clearCart() {
     _items.clear();
     notifyListeners();
+  }
+
+  //Updating the price based on the quantity
+  void updateCartItemQuantity(HomeProducts homeProducts, int newQuantity) {
+    final cartItemIndex =
+        _items.indexWhere((item) => item.homeProducts.id == homeProducts.id);
+
+    if (cartItemIndex >= 0) {
+      final updateItem = _items[cartItemIndex];
+      updateItem.quantity = newQuantity;
+      updateItem.price = updateItem.homeProducts.priceOne * newQuantity;
+      notifyListeners();
+    }
   }
 }

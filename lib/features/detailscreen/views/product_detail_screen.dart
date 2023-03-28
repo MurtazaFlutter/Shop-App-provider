@@ -16,6 +16,7 @@ import '../widgets/select_colors.dart';
 
 class ProductDetailScreen extends StatefulWidget {
   final int id;
+  final int quantity;
   final String image;
   final Color color;
   final String productTitle;
@@ -25,6 +26,7 @@ class ProductDetailScreen extends StatefulWidget {
 
   const ProductDetailScreen({
     super.key,
+    required this.quantity,
     required this.id,
     required this.color,
     required this.image,
@@ -112,6 +114,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen>
                               buttonTitle: 'Add to Cart',
                               onTap: () {
                                 HomeProducts homeProducts = HomeProducts(
+                                  quantity: widget.quantity,
                                   id: widget.id,
                                   color: widget.color,
                                   image: widget.image,
